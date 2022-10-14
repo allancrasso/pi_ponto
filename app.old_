@@ -1,0 +1,34 @@
+// Carregando módulos
+const express = require('express')
+const bodyParser = require('body-parser')
+const path = require('path')
+const { QueryTypes } = require('sequelize');
+const Ponto = require('./ponto')
+
+// const {sequelize} = require('./db')
+const Sequelize = require('sequelize');
+const sequelize = require('./db')
+const app = express()
+
+//Rotas do tipo GET inicio
+
+app.get('/ponto', (request, response) => {
+    response.sendFile(__dirname + "/public/ponto.html");
+  });
+
+// registrar ponto entrada / saída 
+//var matricula = ''
+app.post('/pontoEntrada', (req, res) => {
+  //console.log(matricula, 'está é a matricula')
+  Ponto.create({
+    colaboradoreMatricula: matricula,
+    dataPonto: req.body.pontoEntrada,
+    tipo_ponto: 'Entrada',
+    observacao: '',
+
+  })
+  res.redirect('/ponto')
+  console.log('Bater ponto ENTRADA: Acionado!')
+})
+
+app.listen(3000);
